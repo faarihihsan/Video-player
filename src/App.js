@@ -6,15 +6,14 @@ import ViewMovie from './Components/ViewMovie/ViewMovie';
 import DetailMovie from './Components/DetailMovie/DetailMovie';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
+
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       name: '',
       googleAuth: '',
-      fileList: '',
-      isSignedIn: false,
-      gapi: ''
+      isSignedIn: false
     }
   }
   componentDidMount(){
@@ -65,48 +64,6 @@ class App extends Component {
           name: user.getBasicProfile().getName(),
           isSignedIn: true
         });
-        
-        var fileList = []
-        await window.gapi.client.drive.files.list({
-          "orderBy": "name",
-          "q": "parents = '1ZELrsj2Xa5IkCzs4J8RvU06AhfiwiZhi'"
-        }).then(function(response) {
-          fileList = response.result.files;
-        });
-
-        // var daftarMovie = []
-        // if (fileList != null){
-        //   for (var i in fileList) {
-        //     var iter = fileList[i];
-        //     if (iter.mimeType === "application/vnd.google-apps.folder"){
-        //       var hasilDetailMovie = [];
-        //       await window.gapi.client.drive.files.list({
-        //         "orderBy": "name",
-        //         "q": `parents = '${iter.id}'`
-        //       }).then(function(response) {
-        //         hasilDetailMovie = response;
-        //       });
-
-        //       var movieDetailFolder = hasilDetailMovie.result.files;
-        //       var movie = '';
-        //       var vtt = '';
-        //       for (var j in movieDetailFolder){
-        //         if(movieDetailFolder[j].mimeType === "video/mp4" || movieDetailFolder[j].mimeType === "video/x-matroska") movie = movieDetailFolder[j].id;
-        //         else if (movieDetailFolder[j].mimeType === "text/vtt") vtt = movieDetailFolder[j].id;
-        //       }
-        //       daftarMovie.push({
-        //         'movie':movie,
-        //         'title':iter.name,
-        //         'vtt': vtt
-        //       });
-        //     }
-        //   }
-        // }
-
-        this.setState({
-          fileList: fileList,
-          gapi: window.gapi
-        });
       }
     }
   }
@@ -118,18 +75,15 @@ class App extends Component {
 
   signOutFunction =()=>{
     this.state.googleAuth.signOut();
-    this.setState({
-      fileList: ''
-    });
   }
 
   componentDidUpdate() {
     this.state.googleAuth.isSignedIn.listen(this.updateSigninStatus);
   }
 
+  
   render() {
     const isSignedIn = this.state.isSignedIn;
-    if (this.state.isSignedIn)
     return(
       <div className="App">
         <Router>
@@ -138,25 +92,14 @@ class App extends Component {
             signInFunction={this.signInFunction} 
             signOutFunction={this.signOutFunction}
           />
-          <Switch>
-            <Route path='/' exact render={(props) => <ListMovies {...props} fileList={this.state.fileList} />} />
-            <Route path='/detail/:id' exact render={(props) => <DetailMovie {...props} gapi={this.state.gapi} />}  />
-            <Route path='/view/:movieId/:vttId' exact component={ViewMovie} />
-          </Switch>
-          </Router>
-      </div>
-    );
-
-    else 
-    return (
-      <div className="App">
-        <Router>
-          <Navbar 
-            isSignedIn={isSignedIn} 
-            signInFunction={this.signInFunction} 
-            signOutFunction={this.signOutFunction}
-          />
-          </Router>
+          { isSignedIn && (
+            <Switch>
+              <Route path='/' exact><ListMovies/></Route>
+              <Route path='/detail/:id' exact render={(props) => <DetailMovie {...props} gapi={this.state.gapi} />}  />
+              <Route path='/view/:movieId/:vttId' exact component={ViewMovie} />
+            </Switch>
+          ) }
+        </Router>
       </div>
     );
   }

@@ -1,0 +1,75 @@
+{
+    "movieList" : [
+        {
+            "title" : "avenger endgame",
+            "id" : "ID_AVENGER_ENDGAME",
+            "type" : "single",
+            "movieId" : "ID_AVENGER_ENDGAME_MOVIE",
+            "subsId" : [
+                ["berbagai id subs"]
+            ]
+        },{
+            "title" : "Now You See Me",
+            "id" : "ID_NYSM",
+            "type" : "sequel",
+            "movies" : [
+                {
+                    "movieTitle" : "Now You See Me 1",
+                    "movieId" : "ID_NYSM1",
+                    "subsId" : [
+                        ["berbagai id subs"]
+                    ]
+                },{
+                    "movieTitle" : "Now You See Me 2",
+                    "movieId" : "ID_NYSM2",
+                    "subsId" : [
+                        ["berbagai id subs"]
+                    ]
+                }
+            ]
+        },{
+            "title" : "Game of Throne",
+            "id" : "ID_GOT",
+            "type" : "series",
+            "seasons" : [
+                {
+                    "seasonTitle" : "season 1",
+                    "id" : "ID_SEASON1",
+                    "movies" : [
+                        {
+                            "movieTitle" : "episode 1",
+                            "movieId" : "ID_GOT_S1E1",
+                            "subsId" : [
+                                ["berbagai id subs"]
+                            ]
+                        },{
+                            "movieTitle" : "episode 2",
+                            "movieId" : "ID_GOT_S1E2",
+                            "subsId" : [
+                                ["berbagai id subs"]
+                            ]
+                        }
+                    ]
+                },{
+                    "seasonTitle" : "season 2",
+                    "id" : "ID_SEASON2",
+                    "movies" : [
+                        {
+                            "movieTitle" : "episode 1",
+                            "movieId" : "ID_GOT_S2E1",
+                            "subsId" : [
+                                ["berbagai id subs"]
+                            ]
+                        },{
+                            "movieTitle" : "episode 2",
+                            "movieId" : "ID_GOT_S2E2",
+                            "subsId" : [
+                                ["berbagai id subs"]
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
